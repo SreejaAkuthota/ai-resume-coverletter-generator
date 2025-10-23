@@ -68,8 +68,8 @@ with st.sidebar:
 st.subheader("Candidate Profile")
 col1, col2 = st.columns(2)
 with col1:
-    name = st.text_input("Full Name", value=st.session_state.get("name", ""), placeholder="e.g., Amulya Goli")
-    title = st.text_input("Target Title", value=st.session_state.get("title", ""), placeholder="e.g., Data Analyst | RCM Specialist")
+    name = st.text_input("Full Name", value=st.session_state.get("name", ""), placeholder="e.g., your name")
+    title = st.text_input("Target Title", value=st.session_state.get("title", ""), placeholder="e.g., Data Analyst | GEN AI Specialist")
     location = st.text_input("Location", value=st.session_state.get("location", ""), placeholder="City, State")
     email = st.text_input("Email", value=st.session_state.get("email", ""), placeholder="you@example.com")
 with col2:
