@@ -1,34 +1,72 @@
-# {{ summary.title if summary is defined and summary.title else cand.name }} – {{ cand.title }}
-**Location:** {{ cand.location }} • **Email:** {{ cand.email }} • **Phone:** {{ cand.phone }}{% if cand.linkedin %} • **LinkedIn:** {{ cand.linkedin }}{% endif %}{% if cand.portfolio %} • **Portfolio:** {{ cand.portfolio }}{% endif %}
+# {{ (cand.name ~ " – " ~ cand.title) | trim }}
+
+**Location:** {{ cand.location }}{% if cand.email %} • **Email:** {{ cand.email }}{% endif %}{% if cand.phone %} • **Phone:** {{ cand.phone }}{% endif %}{% if cand.linkedin %} • **LinkedIn:** {{ cand.linkedin }}{% endif %}{% if cand.portfolio %} • **Portfolio:** {{ cand.portfolio }}{% endif %}
 
 ## Summary
-{{ summary.text if summary and summary.text else summary }}
+{# summary may be a string or an object with .text #}
+{% if summary is string %}
+{{ summary }}
+{% elif summary and summary.text %}
+{{ summary.text }}
+{% else %}
+{{ cand.title }} with strengths in {{ (cand.skills or "") | string }}
+{% endif %}
 
 ## Skills
-{{ skills if skills else cand.skills }}
+{# skills may be a string "a, b, c" or a list #}
+{% if skills is string %}
+{{ skills }}
+{% elif skills is iterable %}
+{{ skills | join(", ") }}
+{% else %}
+{{ cand.skills }}
+{% endif %}
 
 ## Experience
-{% for sec in experience_sections %}
-**{{ sec.role }} – {{ sec.company }}**  ({{ sec.dates or "" }})
+{% for sec in experience_sections or [] %}
+**{{ sec.role }} – {{ sec.company }}**{% if sec.dates %}  ({{ sec.dates }}){% endif %}
+{% if sec.bullets %}
 {% for b in sec.bullets %}- {{ b }}
 {% endfor %}
+{% elif sec.description %}
+- {{ sec.description }}
+{% endif %}
 
 {% endfor %}
 
 {% if projects %}
 ## Projects
 {% for p in projects %}
-**{{ p.name }}** — {{ p.blurb }}
+**{{ p.name }}** — {{ p.blurb or "" }}
+{% if p.bullets %}
 {% for b in p.bullets %}- {{ b }}
 {% endfor %}
+{% endif %}
 
 {% endfor %}
 {% endif %}
 
 ## Education
-{{ education if education else cand.education }}
+{# education may be string or list[dict] #}
+{% if education is string %}
+{{ education }}
+{% elif education is iterable %}
+{% for e in education %}
+- **{{ e.institution or e.school }}**{% if e.degree %}, {{ e.degree }}{% endif %}{% if e.dates %} ({{ e.dates }}){% endif %}{% if e.notes %}: {{ e.notes }}{% endif %}
+{% endfor %}
+{% endif %}
 
 {% if extras %}
 ## Additional
+{# extras may be string, dict, or list #}
+{% if extras is string %}
 {{ extras }}
+{% elif extras is mapping %}
+{% for k, v in extras.items() %}
+- **{{ k | capitalize }}:** {{ v if v is string else (v | join(", ")) }}
+{% endfor %}
+{% elif extras is iterable %}
+{% for x in extras %}- {{ x }}
+{% endfor %}
+{% endif %}
 {% endif %}
