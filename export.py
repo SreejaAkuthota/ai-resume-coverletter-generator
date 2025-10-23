@@ -10,7 +10,7 @@ def render_resume_md(data: Dict, jinja_template: str) -> str:
 
 def render_cover_md(data: Dict, jinja_template: str) -> str:
     tmpl = Template(jinja_template)
-    return tmpl.render(**data)
+    return tmpl.render(data)
 
 
 
