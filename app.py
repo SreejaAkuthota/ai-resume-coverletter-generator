@@ -1,10 +1,29 @@
+import os
 import streamlit as st
-from datetime import date
-from prompts import build_resume_prompt, build_cover_letter_prompt
-from utils import LLMClient, StyleConfig, safe_filename
-from export import render_resume_md, render_cover_md, md_to_docx, save_docx
-from jinja2 import Template
-import os, json
+ from datetime import date
+ from prompts import build_resume_prompt, build_cover_letter_prompt
+ from utils import LLMClient, StyleConfig, safe_filename
+ from export import render_resume_md, render_cover_md, md_to_docx, save_docx
+ from jinja2 import Template
+ import os, json
+ 
++# ─────────────────────────────────────────────────────────────────────────────
++# Read keys from Streamlit **Secrets** (Cloud) and expose them as env vars.
++# This lets the rest of the code (utils.LLMClient) keep using os.getenv(...).
++# In your app dashboard, set:
++#   Settings → Secrets:
++#     OPENAI_API_KEY = "sk-..."
++#     OPENAI_MODEL   = "gpt-4o-mini"   (optional)
++# ─────────────────────────────────────────────────────────────────────────────
++try:
++    if "OPENAI_API_KEY" in st.secrets and not os.getenv("OPENAI_API_KEY"):
++        os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
++    if "OPENAI_MODEL" in st.secrets and not os.getenv("OPENAI_MODEL"):
++        os.environ["OPENAI_MODEL"] = st.secrets["OPENAI_MODEL"]
++except Exception:
++    # st.secrets may not exist locally; ignore and rely on .env
++    pass
++
 
 st.set_page_config(page_title="AI Resume & Cover Letter Generator", page_icon="📝", layout="wide")
 
