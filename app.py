@@ -114,23 +114,23 @@ with st.expander("Need an example? Click to load sample data", expanded=False):
     if st.button("Load sample data"):
         st.session_state.update(
             {
-                "name": "Amulya Goli",
-                "title": "Revenue Cycle Analyst | Medical Coding Specialist",
+                "name": "your name",
+                "title": "GEN AI Specialist",
                 "location": "Aurora, IL",
                 "email": "you@example.com",
                 "phone": "+1 (555) 123-4567",
                 "linkedin": "https://linkedin.com/in/yourprofile",
                 "portfolio": "https://your-portfolio.com",
-                "skills": "ICD-10-CM, CPT/HCPCS, Denial Management, KPI Reporting, Epic, SQL, Python, Streamlit",
-                "experience": "- Managed high-volume outstanding claims; reduced AR >90 by 22%\n- Performed KPI/denial trend reporting with SQL dashboards\n- Collaborated with providers to resolve coding/documentation gaps",
+                "skills": "KPI Reporting, Epic, SQL, Python, Streamlit",
+                "experience": "your experience",
                 "education": "MBA in Healthcare Informatics; CPC (A)",
-                "job_title": "Claims Coding Specialist (Medical Coder)",
-                "job_company": "UChicago Medicine",
-                "job_summary": "Support clinic services with revenue cycle functions including training, charge capture, and correct coding edits.",
-                "job_requirements": "ICD-10-CM, CPT/HCPCS, NCCI edits, Epic, payer rules, KPI reporting",
+                "job_title": "Gen AI Specialist",
+                "job_company": "Google",
+                "job_summary": "Correct coding edits.",
+                "job_requirements": "ML, AI, KPI reporting",
             }
         )
-        st.experimental_rerun()
+        st.rerun()
 
 def _clear_fields():
     keys = [
