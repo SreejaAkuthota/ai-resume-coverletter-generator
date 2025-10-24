@@ -31,7 +31,7 @@ It uses modular prompt templates and lets you export polished DOCX files.
 
 ## Deploy to Streamlit Cloud
 1. Push this folder to a new **public GitHub repo**.
-2. On [share.streamlit.io](https://share.streamlit.io), create a new app:
+2. On [share.streamlit.io](https://ai-resume-coverletter-generator.streamlit.app/), create a new app:
    - **Repository:** your/repo
    - **Branch:** main
    - **Main file path:** `app.py`
